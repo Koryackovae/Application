@@ -1,8 +1,30 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
 </head>
 <body>
-    {{ form.as_p }}
+    <form action="" method="post">
+
+    <h1>Регистрация</h1>
+    <p>
+        <label for="id_email">Email:</label>
+        <input type="email" name="email" required id="id_email">
+    </p>
+    <p>
+        <label for="id_user">User:</label>
+        <input type="text" name="user" required id="id_user">
+    </p>
+    <p>
+        <label for="id_password">Password:</label>
+        <input type="password" name="password" required id="id_password">
+    </p>
+    <p>
+        <label for="id_password2">Password2:</label>
+        <input type="password" name="password2" required id="id_password2">
+    </p>
+    <button>Зарегистрироваться</button>
+    </form>
 </body>
+</html>
