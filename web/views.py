@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
-from web.forms import RegistrationForm, AuthForm
+from web.forms import RegistrationForm, AuthForm, EventSlotForm
+from web.models import EventSlot
 
 User = get_user_model()
 
 def main_view(request):
-    return render(request, "web/main.html")
+    eventslots = EventSlot.objects.all()
+    return render(request, "web/main.html", {
+        'eventslots': eventslots
+    })
 
 
 def registration_view(request):
@@ -40,3 +44,13 @@ def auth_view(request):
 def logout_view(request):
     logout(request)
     return redirect("main")
+
+def event_slot_edit_view(request, id=None):
+        eventslot = EventSlot.objects.get(id=id) if id is not None else None
+    form = EventSlotForm(instance=eventslot)
+    if request.method == 'POST':
+        form = EventSlotForm(data=request.POST, initial={'user':request.user})
+        if form.is_valid():
+            form.save()
+            return redirect("main")
+    return render(request, "web/event_slot.html", {'form': form})

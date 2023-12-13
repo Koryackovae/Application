@@ -1,14 +1,20 @@
 {% extends 'web/base.html' %}
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>MyActivity</title>
-</head>
-<body>
-<h1>Hello world!</h1>
 
-{% if not user.is_anonymous %}
-<p>Вы авторизованы как <b>{{ user.username }}</b></p>
-{% endif %}
-</body>
+    {% if not user.is_anonymous %}
+        <p>Вы авторизованы как <b>{{ user.username }}</b></p>
+    {% endif %}
+
+    <a href="{% url 'event_slots_add' %}">Создать слот с мероприятием</a>
+
+    <ul>
+        {% for eventslot in eventslots %}
+            <li>
+                <b>{{ eventslot.title }}</b>
+                {{ eventslot.start_date }} - {{ eventslot.end_date }}
+                {% if eventslot.is_realtime %}<small>(realtime)</small>{% endif %}
+                <a href="{% url 'time_slot_edit' timeslot.id %}">Изменить</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

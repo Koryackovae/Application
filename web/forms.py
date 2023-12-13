@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
+from web.models import EventSlot
+
 User = get_user_model()
 
 class RegistrationForm(forms.ModelForm):
@@ -22,3 +24,15 @@ class RegistrationForm(forms.ModelForm):
 class AuthForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
+
+class EventSlotForm(forms.ModelForm):
+    start_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': "datetime-local"}))
+    end_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': "datetime-local"}))
+
+    def save(self, commit=True):
+        self.instance.user = self.initial["user"]
+        return super().save(commit)
+
+    class Meta:
+        model = EventSlot
+        fields = ('title', 'start_date', 'end_date')

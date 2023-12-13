@@ -1,0 +1,9 @@
+{% extends 'web/base.html' %}
+{% block content %}
+    <h2>Создание слота мероприятия</h2>
+    <form action="" method="post">
+        {% crsf_token %}
+        {{ form.as_p }}
+    <button>Сохранить</button>
+    </form>
+{% endblock %}
