@@ -8,10 +8,10 @@ class EventSlotTag(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class EventSlot(models.Model):
-    title = models.CharField(max_length=256)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    is_realtime = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(EventSlotTag)
-    image = models.ImageField(upload_to='event_slots/', null=True, blank=True)
+    title = models.CharField(max_length=256, verbase_name="Название")
+    start_date = models.DateTimeField(verbase_name="Время начала")
+    end_date = models.DateTimeField(verbase_name="Время окончания")
+    is_realtime = models.BooleanField(default=False, verbase_name="В реальном времени")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbase_name="Пользователь")
+    tags = models.ManyToManyField(EventSlotTag, verbase_name="Теги")
+    image = models.ImageField(upload_to='event_slots/', null=True, blank=True, verbase_name="Картинка")

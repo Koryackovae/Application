@@ -45,12 +45,12 @@ def logout_view(request):
     logout(request)
     return redirect("main")
 
-def event_slot_edit_view(request, id=None):
-        eventslot = EventSlot.objects.get(id=id) if id is not None else None
-    form = EventSlotForm(instance=eventslot)
-    if request.method == 'POST':
-        form = EventSlotForm(data=request.POST, initial={'user':request.user})
-        if form.is_valid():
-            form.save()
-            return redirect("main")
-    return render(request, "web/event_slot.html", {'form': form})
+#def event_slot_edit_view(request, id=None):
+#        eventslot = EventSlot.objects.get(id=id) if id is not None else None
+#    form = EventSlotForm(instance=eventslot)
+#    if request.method == 'POST':
+#        form = EventSlotForm(data=request.POST, files=request.FILES, initial={'user':request.user})
+#        if form.is_valid():
+#            form.save()
+#            return redirect("main")
+#    return render(request, "web/event_slot.html", {'form': form})

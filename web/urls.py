@@ -1,12 +1,12 @@
-from django.urls import path
-
-from web.views import main_view, registration_view, auth_view, logout_view, event_slot_edit_view
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', main_view, name="main"),
-    path("registration/", registration_view, name="registration"),
-    path("auth/", auth_view, name="auth"),
-    path("logout/", logout_view, name="logout"),
-    path("event_slots/add/", event_slot_edit_view, name="event_slots_add"),
-    path("event_slots/<int:id>/", event_slot_edit_view, name="event_slots_edit")
+    path('', include('web.urls')),
+    path('admin/', admin.site.urls)
 ]
+
+if settings.DEBUD:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
