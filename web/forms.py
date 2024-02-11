@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from web.models import EventSlot
+from web.models import EventSlot, EventSlotTag
 
 User = get_user_model()
 
@@ -35,4 +35,13 @@ class EventSlotForm(forms.ModelForm):
 
     class Meta:
         model = EventSlot
-        fields = ('title', 'start_date', 'end_date', 'image')
+        fields = ('title', 'start_date', 'end_date', 'image', 'tags')
+
+class EventSlotTagForm(forms.ModelForm):
+    def save(self, commit=True):
+        self.instance.user = self.initial["user"]
+        return super().save(commit)
+
+    class Meta:
+        model = EventSlotTag
+        fields = ('title')

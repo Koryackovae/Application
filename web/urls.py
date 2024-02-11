@@ -3,9 +3,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from web.views import tags_view
+
 urlpatterns = [
     path('', include('web.urls')),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path("tags/",tags_view, name="")
 ]
 
 if settings.DEBUD:

@@ -7,6 +7,9 @@ class EventSlotTag(models.Model):
     title = models.CharField(max_length=256)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
+
 class EventSlot(models.Model):
     title = models.CharField(max_length=256, verbase_name="Название")
     start_date = models.DateTimeField(verbase_name="Время начала")

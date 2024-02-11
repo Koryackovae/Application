@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
-from web.forms import RegistrationForm, AuthForm, EventSlotForm
-from web.models import EventSlot
+from web.forms import RegistrationForm, AuthForm, EventSlotForm, EventSlotTagForm
+from web.models import EventSlot, EventSlotTag
 
 User = get_user_model()
 
@@ -54,3 +54,13 @@ def logout_view(request):
 #            form.save()
 #            return redirect("main")
 #    return render(request, "web/event_slot.html", {'form': form})
+
+def tags_view(request):
+    tags = EventSlotTag.objects.all()
+    form = EventSlotTagForm()
+    if request.method == 'POST':
+        form = EventSlotTagForm(data=request.POST, initial={'user':request.user})
+        if form.is_valid():
+            form.save()
+            return redirect('tags')
+    return render(request, "web/tags.html", {'tags': tags, "form": form})
