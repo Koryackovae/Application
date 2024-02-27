@@ -2,13 +2,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from web.forms import RegistrationForm, AuthForm, EventSlotForm, EventSlotTagForm
 from web.models import EventSlot, EventSlotTag
+from django.core.paginator import Paginator
 
 User = get_user_model()
 
 def main_view(request):
     eventslots = EventSlot.objects.all()
+
+    page_number = request.GET.get("page", 1)
+    paginator = Paginator(eventslots, per_page=10)
+
     return render(request, "web/main.html", {
-        'eventslots': eventslots
+        'eventslots': paginator.get_page(page_number),
+        'form': EventSlotForm()
     })
 
 
